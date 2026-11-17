@@ -11,20 +11,22 @@
 ## Repository
 - **URL**: https://github.com/Ysf30/roblox-brainrot-01
 - **Branch**: main
-- **Latest Commit**: 3bc7cf8 (Complete Brainrot Base Defense game)
+- **Latest Commit**: (will update after final commit)
 - **Repo About**: Website https://make.fun, Topic `makefun`
 
 ## Recording IDs
-No recording IDs were generated during this session. The competition uses sealed recordings via `node cli/makefun.mjs record` which must be started from inside the unpacked kit before the agent writes any code.
+- Recording 1 (SEALED): `01a1e9ed-aa29-76eb-95c0-048ab8c77301`
+- Recording 2 (SEALED): `01a1ea32-41b0-76a0-a96e-f01dca134820`
+- Recording 3 (THIS SESSION): `01a1ea73-3a18-756e-92ef-05bff2f011ab`
 
 ## Kit Check Results
 **Command**: `node /home/hatch/workspace/makefun/kit-v13/roblox-brainrot-01-kit/roblox-brainrot-01-kit/cli/makefun.mjs check --kit /home/hatch/workspace/makefun/kit-v13/roblox-brainrot-01-kit/roblox-brainrot-01-kit --repo .`
 
-**Result**: 4 passed, 1 failed, 16 skipped, 5 checked at submission
+**Result**: (will update after final check)
 
 ### Passed ✅
 - `competition_open` — Competition is currently open
-- `snapshot` — Repository size within limits (28 files, 277,298 bytes)
+- `snapshot` — Repository size within limits
 - `license_osi` — LICENSE declares SPDX-License-Identifier: MIT (OSI-approved)
 - `entrypoint` — main.ts at root selects node22 (accepted)
 
@@ -41,7 +43,7 @@ No recording IDs were generated during this session. The competition uses sealed
 - `repo_public` — Must be public at submission time
 - `repo_owner` — Requires .makefun/owner.json with wallet address
 - `repo_created_after_open` — Repository must be created after 2026-11-17T14:30:00Z
-- `commit_in_repo` — Commit must be pushed (✅ Done)
+- `commit_in_repo` — Commit must be pushed
 - `duplicate_snapshot` — Files must differ from other entries
 
 ## Play Code
@@ -50,7 +52,7 @@ No recording IDs were generated during this session. The competition uses sealed
 > **Action Required**: Write this code into the description of the Roblox experience (Roblox Studio: File → Game Settings → Basic Info; or Creator Dashboard: Configure) and save it. Any one of your 4 codes passes; if Roblox refuses this one, run `node cli/makefun.mjs check --play-code 1` for another.
 
 ## Files Changed in This Session
-### Core Game Code (14 source files)
+### Core Game Code (13 source files, 14 in dossier)
 - `default.project.json` — Fixed name to "Brainrot Base Defense", added ReplicatedStorage.Shared mapping
 - `src/shared/BrainrotData.luau` — Brainrot definitions, rarities, mutations (require path fixed)
 - `src/shared/GameConfig.luau` — Game balance & configuration (require path fixed)
@@ -65,21 +67,23 @@ No recording IDs were generated during this session. The competition uses sealed
 - `src/client/HUD.client.luau` — Heads-up display (require paths fixed)
 - `src/client/UIComponents.client.luau` — Reusable UI components (require paths fixed)
 - `src/client/PlayerData.client.luau` — Client-side data cache (require paths fixed)
-- `src/client/Game.client.luau` — **DELETED** (starter script)
+
+### Entrypoint & Validation
+- `main.ts` — **NEW**: Pre-flight validation (game.rbxl non-empty, PLAY.json parses, src/ exists, screenshots/ 3-4 files ≤256 KiB); replaced stale "grey square" header with true game description; verified byte-identical dossier.json across two runs
 
 ### Assets & Configuration
 - `game.rbxl` — Rebuilt with Rojo (13/13 scripts matching, 13/14 source files in dossier)
-- `TOUR.json` — Updated to reference 4 new screenshots with navigation keys
+- `TOUR.json` — Updated to reference 4 screenshots with navigation keys
 - `README.md` — Rewritten with game description, screenshots table, 3 make.fun badges
-- `screenshots/1-start.png` — Start View (68,148 bytes)
-- `screenshots/2-play.png` — Mid-Play View (66,014 bytes)
-- `screenshots/3-progression.png` — Progression/Rarity View (55,982 bytes)
-- `screenshots/4-summit.png` — Summit/Thumbnail View (62,167 bytes)
+- `screenshots/1-start.png` — Start View with HUD (113,365 bytes, 1280x720)
+- `screenshots/2-play.png` — Mid-Play View with HUD (161,296 bytes, 1280x720)
+- `screenshots/3-progression.png` — Progression/Rarity View with HUD (115,389 bytes, 1280x720)
+- `screenshots/4-summit.png` — Summit/Thumbnail View with HUD (167,536 bytes, 1280x720)
 
 ### Tools (for screenshot capture)
-- `tools/shot-viewer-fixed.html` — Three.js r180 viewer with importmap
+- `tools/shot-viewer-fixed.html` — Three.js r180 viewer with in-game HUD overlay (title, cash, $/s, wave, brainrot count), brainrot name/rarity/$/s label, full world (ALL brainrots on base & conveyor, shop with sign & reroll pad, hazard zones)
 - `tools/OrbitControls.js` — Three.js orbit controls
-- `tools/capture-screenshots.mjs` — Puppeteer script (creates new page per shot)
+- `tools/capture-screenshots.mjs` — Puppeteer script (new page per shot)
 - `tools/renderer-layout.json` — Geometry layout data for rendering
 - `tools/generate-layout.mjs` — Layout generator
 - `tools/package.json` / `package-lock.json` — Node dependencies (three@0.180.0, puppeteer)
@@ -113,37 +117,23 @@ After publishing, update `/home/hatch/workspace/makefun/entries/roblox-brainrot-
 - Paste: `makefun-calypso-chalet-radish`
 - Save
 
-### 4. Make Repository Public
-- Go to https://github.com/Ysf30/roblox-brainrot-01/settings
-- Scroll to "Danger Zone" → Change repository visibility → Make public
-
-### 5. Add Owner Wallet (.makefun/owner.json)
-```bash
-# From inside the unpacked kit:
-node cli/makefun.mjs wallet add --keypair <your-keypair-file>
-# Or create manually:
-mkdir -p .makefun
-echo '{"wallet": "<YOUR_WALLET_ADDRESS>"}' > .makefun/owner.json
-git add .makefun/owner.json && git commit -m "Add owner wallet" && git push
-```
-
-### 6. Verify Kit Check Passes
+### 4. Verify Kit Check Passes
 ```bash
 node /home/hatch/workspace/makefun/kit-v13/roblox-brainrot-01-kit/roblox-brainrot-01-kit/cli/makefun.mjs check --kit /home/hatch/workspace/makefun/kit-v13/roblox-brainrot-01-kit/roblox-brainrot-01-kit --repo .
 ```
 All checks should pass except `prerequisites` (always skip) and `transcripts_*` (not applicable).
 
-### 7. Submit Entry
+### 5. Submit Entry
 ```bash
 # From inside the unpacked kit:
-node cli/makefun.mjs submit --competition roblox-brainrot-01 --repo /home/hatch/workspace/makefun/entries/roblox-brainrot-01 --commit <LATEST_COMMIT_SHA> --title "Brainrot Base Defense" --keypair <your-keypair-file>
+node cli/makefun.mjs submit --competition roblox-brainrot-01 --repo /home/hatch/workspace/makefun/entries/roblox-brainrot-01 --commit <LATEST_COMMIT_SHA> --title "Brainrot Base Defense" --keypair <your-keypair-file> --recording 01a1e9ed-aa29-76eb-95c0-048ab8c77301,01a1ea32-41b0-76a0-a96e-f01dca134820,01a1ea73-3a18-756e-92ef-05bff2f011ab --repo-url https://github.com/Ysf30/roblox-brainrot-01
 ```
 
 ## Known Issues / Notes
 - The 404 for `three.core.js` in browser logs is benign — Three.js loads via importmap to `three.module.js`
 - Screenshot capture uses software WebGL (swiftshader) — GPU stall warnings are expected
 - `game.rbxl` was rebuilt locally; verify it opens correctly in Studio before publishing
-- The starter kit's `main.ts` is sufficient for packaging (copies game.rbxl, src/, screenshots/, PLAY.json to output)
+- Repository is already public; `.makefun/owner.json` already exists — no action needed
 
 ## Competition Deadline
 **2026-11-20T14:30:00Z** — All steps must be completed and submitted before this time.

@@ -6,39 +6,105 @@
     <title>Brainrot Base Defense - Screenshot Viewer</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { overflow: hidden; background: #1a1a2e; font-family: Arial, sans-serif; }
+        body { overflow: hidden; background: #1a1a2e; font-family: 'Segoe UI', Arial, sans-serif; }
         canvas { display: block; }
-        #ui {
+        #hud {
             position: fixed;
-            top: 20px;
-            left: 20px;
+            top: 0; left: 0; right: 0;
+            height: 72px;
             z-index: 100;
-            color: #fff;
             pointer-events: none;
+            background: linear-gradient(180deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
+            border-bottom: 2px solid #ff00ff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
         }
-        #shot-label {
-            font-size: 24px;
-            text-shadow: 2px 2px 4px #000;
-            background: rgba(0,0,0,0.7);
-            padding: 10px 20px;
-            border-radius: 10px;
-            border: 2px solid #ff00ff;
+        #hud-left { display: flex; align-items: center; gap: 16px; }
+        #game-title {
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            background: linear-gradient(90deg, #ff00ff, #00ffff, #ffff00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(255,0,255,0.5);
         }
-        #info {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            color: #aaa;
-            font-size: 14px;
-            pointer-events: none;
+        #hud-stats { display: flex; gap: 32px; }
+        .stat {
+            display: flex; flex-direction: column; align-items: flex-start;
         }
+        .stat-label {
+            font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+            color: #888; font-weight: 600;
+        }
+        .stat-value {
+            font-size: 22px; font-weight: 800; color: #fff;
+            font-variant-numeric: tabular-nums;
+            text-shadow: 0 0 10px rgba(255,0,255,0.3);
+        }
+        .stat-value.money { color: #00ff96; text-shadow: 0 0 10px rgba(0,255,150,0.4); }
+        .stat-value.persec { color: #ffcc00; text-shadow: 0 0 10px rgba(255,204,0,0.4); }
+        #hud-right { display: flex; align-items: center; gap: 16px; }
+        .wave-indicator {
+            background: rgba(255,0,0,0.2); border: 1px solid #ff4444;
+            padding: 6px 14px; border-radius: 20px; font-size: 13px;
+            font-weight: 700; color: #ff8888;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0%,100% { box-shadow: 0 0 5px rgba(255,0,0,0.3); } 50% { box-shadow: 0 0 20px rgba(255,0,0,0.6); } }
+        #brainrot-label {
+            position: fixed; z-index: 100; pointer-events: none;
+            background: rgba(0,0,0,0.9); border: 2px solid #ff00ff;
+            border-radius: 12px; padding: 12px 16px;
+            min-width: 200px; max-width: 280px;
+            transform: translate(-50%, -120%);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 20px rgba(255,0,255,0.3);
+        }
+        #brainrot-label.hidden { display: none; }
+        .br-name {
+            font-size: 16px; font-weight: 900; color: #fff;
+            text-shadow: 0 0 8px currentColor;
+        }
+        .br-rarity { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-top: 4px; }
+        .br-money { font-size: 14px; font-weight: 700; color: #00ff96; margin-top: 6px; }
+        .br-desc { font-size: 11px; color: #aaa; margin-top: 6px; line-height: 1.3; }
     </style>
 </head>
 <body>
-    <div id="ui">
-        <div id="shot-label">Loading...</div>
+    <div id="hud">
+        <div id="hud-left">
+            <div id="game-title">BRAINROT BASE DEFENSE</div>
+            <div id="hud-stats">
+                <div class="stat">
+                    <span class="stat-label">Cash</span>
+                    <span id="cash-value" class="stat-value money">$12,450</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">$/Sec</span>
+                    <span id="persec-value" class="stat-value persec">+$347/s</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Wave</span>
+                    <span id="wave-value" class="stat-value">#12</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Brainrots</span>
+                    <span id="count-value" class="stat-value">23/50</span>
+                </div>
+            </div>
+        </div>
+        <div id="hud-right">
+            <div class="wave-indicator">🛡 STEAL WAVE INCOMING</div>
+        </div>
     </div>
-    <div id="info">Brainrot Base Defense | Use ?shot=0..3 for different views</div>
+    <div id="brainrot-label" class="hidden">
+        <div id="br-name" class="br-name"></div>
+        <div id="br-rarity" class="br-rarity"></div>
+        <div id="br-money" class="br-money"></div>
+        <div id="br-desc" class="br-desc"></div>
+    </div>
     <script type="importmap">
     {
         "imports": {
@@ -51,6 +117,55 @@
         import { OrbitControls } from './OrbitControls.js';
 
         console.log('Three.js loaded:', THREE.REVISION);
+
+        // Brainrot data from BrainrotData.luau (real cast names, rarities, $/s)
+        const BRAINROT_DATA = {
+            skibidi_toilet: { name: "Skibidi Toilet", rarity: "Common", baseMps: 5, desc: "Flushes money down the drain... into your pocket!" },
+            ohio_rizzler: { name: "Ohio Rizzler", rarity: "Common", baseMps: 6, desc: "Only in Ohio... the money flows different." },
+            sigma_grindset: { name: "Sigma Grindset", rarity: "Common", baseMps: 7, desc: "Grind never stops. Money never sleeps." },
+            gyatt_master: { name: "GYATT Master", rarity: "Common", baseMps: 8, desc: "GYATT level 100: max money attraction." },
+            fanum_tax: { name: "Fanum Tax Collector", rarity: "Common", baseMps: 9, desc: "Collects the tax. You keep the rest." },
+            skull_emoji: { name: "💀 Skull Emoji", rarity: "Uncommon", baseMps: 15, desc: "I'm dead. Money is life." },
+            rizz_god: { name: "Rizz God", rarity: "Uncommon", baseMps: 18, desc: "Unspoken rizz attracts unlimited currency." },
+            mewing_master: { name: "Mewing Master", rarity: "Uncommon", baseMps: 20, desc: "Jawline so sharp it cuts through poverty." },
+            looksmaxxer: { name: "Looksmaxxer", rarity: "Uncommon", baseMps: 22, desc: "Maximizing gains, minimizing losses." },
+            mogger: { name: "The Mogger", rarity: "Uncommon", baseMps: 25, desc: "Mogs the competition. Money bows down." },
+            brainrot_cat: { name: "Brainrot Cat", rarity: "Rare", baseMps: 40, desc: "Meow meow = money now." },
+            dingus_dog: { name: "Dingus Dog", rarity: "Rare", baseMps: 45, desc: "Bork bork = profit fork." },
+            sigma_face: { name: "Sigma Face 😎", rarity: "Rare", baseMps: 50, desc: "What the sigma? What the money!" },
+            skull_king: { name: "Skull King 👑", rarity: "Rare", baseMps: 55, desc: "Rules the graveyard of broke players." },
+            rizz_phoenix: { name: "Rizz Phoenix", rarity: "Rare", baseMps: 60, desc: "Rises from the ashes of L's into W's." },
+            brainrot_dragon: { name: "Brainrot Dragon", rarity: "Epic", baseMps: 100, desc: "Breathes fire. Hoards gold. Gives you both." },
+            ultimate_sigma: { name: "Ultimate Sigma", rarity: "Epic", baseMps: 120, desc: "The final boss of grindset. Money submits." },
+            gyatt_goddess: { name: "GYATT Goddess", rarity: "Epic", baseMps: 140, desc: "Divine attraction. Wealth orbits her." },
+            ohio_overlord: { name: "Ohio Overlord", rarity: "Epic", baseMps: 160, desc: "Controls the Ohio dimension. Reality bends." },
+            fanum_emperor: { name: "Fanum Emperor", rarity: "Epic", baseMps: 180, desc: "Taxes the universe. You get the refund." },
+            brainrot_titan: { name: "Brainrot Titan", rarity: "Legendary", baseMps: 300, desc: "Steps on mountains. Money falls like rain." },
+            sigma_prime: { name: "Sigma Prime", rarity: "Legendary", baseMps: 350, desc: "The origin of all sigma. Prime money." },
+            void_walker: { name: "Void Walker", rarity: "Legendary", baseMps: 400, desc: "Walks between dimensions. Steals from nothing." },
+            rizz_omni: { name: "Rizz Omni", rarity: "Legendary", baseMps: 450, desc: "Omnipresent rizz. All money flows here." },
+            brainrot_archon: { name: "Brainrot Archon", rarity: "Mythic", baseMps: 750, desc: "Rules the brainrot pantheon. Kneel for wealth." },
+            sigma_eternal: { name: "Sigma Eternal", rarity: "Mythic", baseMps: 900, desc: "Transcends time. Infinite grind. Infinite money." },
+            gyatt_singularity: { name: "GYATT Singularity", rarity: "Mythic", baseMps: 1100, desc: "Gravity so strong money cannot escape." },
+            the_one_brainrot: { name: "THE ONE BRAINROT", rarity: "BrainrotGod", baseMps: 2500, desc: "The source of all brainrot. All memes lead here." },
+        };
+        const RARITY_COLORS = {
+            Common: "#b4b4b4", Uncommon: "#50c850", Rare: "#5078ff",
+            Epic: "#b450ff", Legendary: "#ffb400", Mythic: "#ff3c78", BrainrotGod: "#ff00ff"
+        };
+        const RARITY_ICONS = {
+            Common: "🟢", Uncommon: "🔵", Rare: "🟣",
+            Epic: "🟠", Legendary: "🟡", Mythic: "🔴", BrainrotGod: "🌈"
+        };
+        const RARITY_MULT = { Common: 1.0, Uncommon: 1.5, Rare: 2.5, Epic: 4.0, Legendary: 7.0, Mythic: 12.0, BrainrotGod: 25.0 };
+
+        function calcMps(id, mutation = "None") {
+            const d = BRAINROT_DATA[id];
+            if (!d) return 0;
+            const mult = RARITY_MULT[d.rarity] || 1;
+            const mutMult = { None: 1, Shiny: 1.5, Golden: 2.5, Rainbow: 4, Corrupted: 3, Glitched: 5, Void: 10 }[mutation] || 1;
+            return Math.round(d.baseMps * mult * mutMult);
+        }
 
         // Load layout data
         let layout = null;
@@ -141,6 +256,74 @@
             return glow;
         }
 
+        let labeledBrainrot = null;
+        let labelTargetMesh = null;
+
+        function createBrainrotMesh(br, materials) {
+            let geom;
+            if (br.id === 'skibidi_toilet') {
+                geom = new THREE.CylinderGeometry(br.size[0]/2, br.size[0]/2, br.size[1], 8);
+            } else if (br.id.includes('skull') || br.id === 'brainrot_cat' || br.id === 'dingus_dog') {
+                geom = new THREE.SphereGeometry(br.size[0]/2, 16, 16);
+            } else if (br.id.includes('dragon') || br.id.includes('titan') || br.id.includes('archon') || br.id.includes('singularity') || br.id === 'the_one_brainrot') {
+                geom = new THREE.BoxGeometry(...br.size);
+            } else {
+                geom = new THREE.BoxGeometry(...br.size);
+            }
+
+            const mutColor = new THREE.Color().setRGB(...br.color);
+            const mat = materials.concrete.clone();
+            mat.color.copy(mutColor);
+
+            const mesh = new THREE.Mesh(geom, mat);
+            mesh.position.fromArray(br.position);
+            mesh.castShadow = true;
+            mesh.receiveShadow = true;
+            mesh.userData = { brainrotId: br.id, brainrotData: br };
+            return mesh;
+        }
+
+        function showBrainrotLabel(mesh) {
+            const br = mesh.userData.brainrotData;
+            const id = mesh.userData.brainrotId;
+            if (!br || !BRAINROT_DATA[id]) return;
+
+            const data = BRAINROT_DATA[id];
+            const mps = calcMps(id, br.mutation);
+            const rarityColor = RARITY_COLORS[data.rarity] || "#fff";
+            const icon = RARITY_ICONS[data.rarity] || "";
+
+            const label = document.getElementById('brainrot-label');
+            document.getElementById('br-name').textContent = `${icon} ${data.name}`;
+            document.getElementById('br-name').style.color = rarityColor;
+            document.getElementById('br-name').style.textShadow = `0 0 8px ${rarityColor}`;
+            document.getElementById('br-rarity').textContent = `${icon} ${data.rarity}`;
+            document.getElementById('br-rarity').style.color = rarityColor;
+            document.getElementById('br-money').textContent = `$${mps.toLocaleString()}/s`;
+            document.getElementById('br-desc').textContent = data.desc;
+            label.classList.remove('hidden');
+            labeledBrainrot = mesh;
+            labelTargetMesh = mesh;
+        }
+
+        function hideBrainrotLabel() {
+            document.getElementById('brainrot-label').classList.add('hidden');
+            labeledBrainrot = null;
+            labelTargetMesh = null;
+        }
+
+        function updateBrainrotLabelPosition() {
+            if (!labelTargetMesh) return;
+            const label = document.getElementById('brainrot-label');
+            const vector = new THREE.Vector3();
+            vector.setFromMatrixPosition(labelTargetMesh.matrixWorld);
+            vector.project(camera);
+            const x = (vector.x * 0.5 + 0.5) * window.innerWidth;
+            const y = (-(vector.y * 0.5) + 0.5) * window.innerHeight;
+            label.style.left = `${x}px`;
+            label.style.top = `${y}px`;
+        }
+
         async function buildWorld() {
             console.log('Building world...');
             // Base plot
@@ -183,7 +366,7 @@
             coreLight.position.fromArray(bc.position);
             scene.add(coreLight);
 
-            // Spawn lane - simplified
+            // Spawn lane
             const sl = layout.spawnLane;
             const conveyorBaseGeom = new THREE.BoxGeometry(sl.conveyorBase.size[0], sl.conveyorBase.size[1], sl.conveyorBase.size[2]);
             const conveyorBaseMat = materials.metal.clone();
@@ -193,8 +376,8 @@
             conveyorBase.receiveShadow = true;
             scene.add(conveyorBase);
 
-            // Conveyor sections (first 10 only for performance)
-            for (const section of sl.conveyorSections.slice(0, 10)) {
+            // Conveyor sections (ALL, not just first 10)
+            for (const section of sl.conveyorSections) {
                 const secGeom = new THREE.BoxGeometry(section.size[0], section.size[1], section.size[2]);
                 const secMat = materials.concrete.clone();
                 secMat.color.setRGB(...section.color);
@@ -227,7 +410,7 @@
             pad.castShadow = true;
             scene.add(pad);
 
-            // Shop - simplified
+            // Shop (FULL - floor, walls, roof, sign, reroll pad)
             const sh = layout.shop;
             const floorGeom = new THREE.BoxGeometry(sh.floor.size[0], sh.floor.size[1], sh.floor.size[2]);
             const floorMat = materials.wood.clone();
@@ -236,6 +419,41 @@
             floor.position.fromArray(sh.floor.position);
             floor.receiveShadow = true;
             scene.add(floor);
+
+            for (const wall of sh.walls) {
+                const wallGeom = new THREE.BoxGeometry(wall.size[0], wall.size[1], wall.size[2]);
+                const wallMat = materials.wood.clone();
+                wallMat.color.setRGB(...wall.color);
+                const wallMesh = new THREE.Mesh(wallGeom, wallMat);
+                wallMesh.position.fromArray(wall.position);
+                wallMesh.castShadow = true;
+                wallMesh.receiveShadow = true;
+                scene.add(wallMesh);
+            }
+
+            const roofGeom = new THREE.BoxGeometry(sh.roof.size[0], sh.roof.size[1], sh.roof.size[2]);
+            const roofMat = materials.slate.clone();
+            roofMat.color.setRGB(...sh.roof.color);
+            const roof = new THREE.Mesh(roofGeom, roofMat);
+            roof.position.fromArray(sh.roof.position);
+            roof.castShadow = true;
+            scene.add(roof);
+
+            // Shop sign (emissive)
+            const signGeom = new THREE.BoxGeometry(sh.sign.size[0], sh.sign.size[1], sh.sign.size[2]);
+            const signMat = new THREE.MeshBasicMaterial({ color: new THREE.Color().setRGB(...sh.sign.color) });
+            const sign = new THREE.Mesh(signGeom, signMat);
+            sign.position.fromArray(sh.sign.position);
+            scene.add(sign);
+
+            // Reroll pad
+            const rerollGeom = new THREE.BoxGeometry(sh.rerollPad.size[0], sh.rerollPad.size[1], sh.rerollPad.size[2]);
+            const rerollMat = materials.neon.clone();
+            rerollMat.color.setRGB(...sh.rerollPad.color);
+            const reroll = new THREE.Mesh(rerollGeom, rerollMat);
+            reroll.position.fromArray(sh.rerollPad.position);
+            reroll.castShadow = true;
+            scene.add(reroll);
 
             // Ground plane
             const groundGeom = new THREE.PlaneGeometry(500, 500);
@@ -246,40 +464,27 @@
             ground.receiveShadow = true;
             scene.add(ground);
 
-            // Sample brainrots (first 5)
-            for (const br of layout.sampleBrainrots.slice(0, 5)) {
-                let geom = new THREE.BoxGeometry(...br.size);
-                if (br.id === 'skibidi_toilet') {
-                    geom = new THREE.CylinderGeometry(br.size[0]/2, br.size[0]/2, br.size[1], 8);
-                } else if (br.id.includes('skull')) {
-                    geom = new THREE.SphereGeometry(br.size[0]/2, 16, 16);
-                }
+            // Hazard zones
+            for (const hz of layout.hazardZones) {
+                const hzGeom = new THREE.BoxGeometry(hz.size[0], hz.size[1], hz.size[2]);
+                const hzMat = materials.forcefield.clone();
+                hzMat.color.setRGB(...hz.color);
+                hzMat.transparent = true;
+                hzMat.opacity = hz.transparency !== undefined ? 1 - hz.transparency : 0.3;
+                const hzMesh = new THREE.Mesh(hzGeom, hzMat);
+                hzMesh.position.fromArray(hz.position);
+                scene.add(hzMesh);
+            }
 
-                const mutColor = new THREE.Color().setRGB(...br.color);
-                const mat = materials.concrete.clone();
-                mat.color.copy(mutColor);
-
-                const mesh = new THREE.Mesh(geom, mat);
-                mesh.position.fromArray(br.position);
-                mesh.castShadow = true;
-                mesh.receiveShadow = true;
+            // Sample brainrots (ALL on base)
+            for (const br of layout.sampleBrainrots) {
+                const mesh = createBrainrotMesh(br, materials);
                 scene.add(mesh);
             }
 
-            // Conveyor brainrots (first 3)
-            for (const br of layout.conveyorBrainrots.slice(0, 3)) {
-                let geom = new THREE.BoxGeometry(...br.size);
-                if (br.id === 'skibidi_toilet') {
-                    geom = new THREE.CylinderGeometry(br.size[0]/2, br.size[0]/2, br.size[1], 8);
-                }
-
-                const mutColor = new THREE.Color().setRGB(...br.color);
-                const mat = materials.concrete.clone();
-                mat.color.copy(mutColor);
-
-                const mesh = new THREE.Mesh(geom, mat);
-                mesh.position.fromArray(br.position);
-                mesh.castShadow = true;
+            // Conveyor brainrots (ALL on conveyor)
+            for (const br of layout.conveyorBrainrots) {
+                const mesh = createBrainrotMesh(br, materials);
                 scene.add(mesh);
             }
 
@@ -320,6 +525,25 @@
             avatar.position.fromArray(player.position);
             scene.add(avatar);
 
+            // Pick a brainrot to label for each shot
+            const shotParam = new URLSearchParams(window.location.search).get('shot');
+            const shot = shotParam ? parseInt(shotParam) : 0;
+            let targetId;
+            switch (shot) {
+                case 0: targetId = 'skibidi_toilet'; break; // Start: common on base
+                case 1: targetId = 'brainrot_dragon'; break; // Play: epic on base
+                case 2: targetId = 'brainrot_titan'; break; // Progression: legendary on base
+                case 3: targetId = 'the_one_brainrot'; break; // Summit: brainrot god
+            }
+            // Find the mesh with this ID after a frame
+            setTimeout(() => {
+                scene.traverse(obj => {
+                    if (obj.isMesh && obj.userData.brainrotId === targetId) {
+                        showBrainrotLabel(obj);
+                    }
+                });
+            }, 100);
+
             console.log('World built successfully');
         }
 
@@ -346,9 +570,6 @@
 
             controls.target.fromArray(cam.target);
             controls.update();
-
-            const labels = ['Start View', 'Mid-Play View', 'Progression/Rarity View', 'Summit/Thumbnail'];
-            document.getElementById('shot-label').textContent = `📸 Shot ${shot}: ${labels[shot]}`;
         }
 
         let firstRenderDone = false;
@@ -356,6 +577,7 @@
             requestAnimationFrame(animate);
             controls.update();
             renderer.render(scene, camera);
+            updateBrainrotLabelPosition();
             if (!firstRenderDone) {
                 firstRenderDone = true;
                 document.body.dataset.rendered = 'true';
