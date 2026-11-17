@@ -11,7 +11,7 @@
 ## Repository
 - **URL**: https://github.com/Ysf30/roblox-brainrot-01
 - **Branch**: main
-- **Latest Commit**: (will update after final commit)
+- **Latest Commit**: 39ddfe0cc5621ad5fcb611bed263572401edea7c
 - **Repo About**: Website https://make.fun, Topic `makefun`
 
 ## Recording IDs
@@ -22,16 +22,16 @@
 ## Kit Check Results
 **Command**: `node /home/hatch/workspace/makefun/kit-v13/roblox-brainrot-01-kit/roblox-brainrot-01-kit/cli/makefun.mjs check --kit /home/hatch/workspace/makefun/kit-v13/roblox-brainrot-01-kit/roblox-brainrot-01-kit --repo .`
 
-**Result**: (will update after final check)
+**Result**: 4 passed, 1 failed, 16 skipped, 5 checked at submission
 
 ### Passed ✅
-- `competition_open` — Competition is currently open
-- `snapshot` — Repository size within limits
+- `competition_open` — Competition is currently open (2026-11-17T17:15:23Z between opening and deadline)
+- `snapshot` — 38 files, 1,578,884 bytes at 39ddfe0cc5621ad5fcb611bed263572401edea7c: within intake caps
 - `license_osi` — LICENSE declares SPDX-License-Identifier: MIT (OSI-approved)
 - `entrypoint` — main.ts at root selects node22 (accepted)
 
 ### Failed ❌
-- `play_link` — PLAY.json still holds starter values. **Requires manual action**: Publish the experience from Roblox Studio, set it Public, then write its play link, place_id, and universe_id to PLAY.json.
+- `play_link` — PLAY.json still holds starter values (url: "https://www.roblox.com/games/0", place_id: 0, universe_id: 0). **Requires manual action**: Publish the experience from Roblox Studio, set it Public, then write its play link, place_id, and universe_id to PLAY.json.
 
 ### Skipped (require submission-time checks)
 - `prerequisites` — Roblox Studio, Node.js 22.18+, Git, coding agent, Roblox account
@@ -40,10 +40,10 @@
 - `transcripts_present` — Competition takes no transcript upload
 - `transcripts_witnessed` — Same as above
 - `transcripts_run_record` — Same as above
-- `repo_public` — Must be public at submission time
-- `repo_owner` — Requires .makefun/owner.json with wallet address
+- `repo_public` — Must be public at submission time (repository is already public)
+- `repo_owner` — Requires .makefun/owner.json with wallet address (already exists)
 - `repo_created_after_open` — Repository must be created after 2026-11-17T14:30:00Z
-- `commit_in_repo` — Commit must be pushed
+- `commit_in_repo` — Commit 39ddfe0cc5621ad5fcb611bed263572401edea7c must be pushed (✅ Done)
 - `duplicate_snapshot` — Files must differ from other entries
 
 ## Play Code
@@ -126,7 +126,7 @@ All checks should pass except `prerequisites` (always skip) and `transcripts_*` 
 ### 5. Submit Entry
 ```bash
 # From inside the unpacked kit:
-node cli/makefun.mjs submit --competition roblox-brainrot-01 --repo /home/hatch/workspace/makefun/entries/roblox-brainrot-01 --commit <LATEST_COMMIT_SHA> --title "Brainrot Base Defense" --keypair <your-keypair-file> --recording 01a1e9ed-aa29-76eb-95c0-048ab8c77301,01a1ea32-41b0-76a0-a96e-f01dca134820,01a1ea73-3a18-756e-92ef-05bff2f011ab --repo-url https://github.com/Ysf30/roblox-brainrot-01
+node cli/makefun.mjs submit --competition roblox-brainrot-01 --repo /home/hatch/workspace/makefun/entries/roblox-brainrot-01 --commit 39ddfe0cc5621ad5fcb611bed263572401edea7c --title "Brainrot Base Defense" --keypair <your-keypair-file> --recording 01a1e9ed-aa29-76eb-95c0-048ab8c77301,01a1ea32-41b0-76a0-a96e-f01dca134820,01a1ea73-3a18-756e-92ef-05bff2f011ab --repo-url https://github.com/Ysf30/roblox-brainrot-01
 ```
 
 ## Known Issues / Notes
