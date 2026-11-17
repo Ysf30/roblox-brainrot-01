@@ -13,7 +13,7 @@ async function captureScreenshots() {
       '--enable-unsafe-swiftshader',
       '--window-size=1280,720',
     ],
-    executablePath: '/usr/bin/google-chrome-stable',
+    executablePath: '/home/hatch/.cache/puppeteer/chrome/linux-157.0.8103.78/chrome-linux64/chrome',
   });
 
   const shots = [

@@ -11,22 +11,25 @@
 ## Repository
 - **URL**: https://github.com/Ysf30/roblox-brainrot-01
 - **Branch**: main
-- **Latest Commit**: 39ddfe0cc5621ad5fcb611bed263572401edea7c
+- **Latest Commit**: 98f98c7f15c312da303658b814087d7698084048
 - **Repo About**: Website https://make.fun, Topic `makefun`
 
 ## Recording IDs
 - Recording 1 (SEALED): `01a1e9ed-aa29-76eb-95c0-048ab8c77301`
 - Recording 2 (SEALED): `01a1ea32-41b0-76a0-a96e-f01dca134820`
-- Recording 3 (THIS SESSION): `01a1ea73-3a18-756e-92ef-05bff2f011ab`
+- Recording 3 (SEALED): `01a1ea73-3a18-756e-92ef-05bff2f011ab`
+- Recording 4: `01a1ea89` — SEALED but **EMPTY** (agent died instantly on NIM 503 overload error, no work done)
+- Recording 5: `01a1ea90` — **VOID** (runtime restart killed it before agent started; seal says it cannot enter)
+- Recording 6 (THIS SESSION): `01a1ea95-dd65-706b-bd63-c902fe13ba22`
 
-## Kit Check Results
-**Command**: `node /home/hatch/workspace/makefun/kit-v13/roblox-brainrot-01-kit/roblox-brainrot-01-kit/cli/makefun.mjs check --kit /home/hatch/workspace/makefun/kit-v13/roblox-brainrot-01-kit/roblox-brainrot-01-kit --repo .`
+## Kit Check Results (Latest Run)
+**Command**: `node /home/hatch/workspace/makefun/kit-v13/roblox-brainrot-01-kit/roblox-brainrot-01-kit/cli/makefun.mjs check --kit /home/hatch/workspace/makefun/kit-v13/roblox-brainrot-01-kit/roblox-brainrot-01-kit --repo /home/hatch/workspace/makefun/entries/roblox-brainrot-01`
 
-**Result**: 4 passed, 1 failed, 16 skipped, 5 checked at submission
+**Result**: 4 passed, 1 failed, 16 skipped, 5 checked at submission (at commit 98f98c7f15c312da303658b814087d7698084048)
 
 ### Passed ✅
-- `competition_open` — Competition is currently open (2026-11-17T17:15:23Z between opening and deadline)
-- `snapshot` — 38 files, 1,578,884 bytes at 39ddfe0cc5621ad5fcb611bed263572401edea7c: within intake caps
+- `competition_open` — Competition is currently open (between opening 2026-11-17T14:30:00Z and deadline 2026-11-20T14:30:00Z)
+- `snapshot` — 38 files, 1,579,218 bytes at 98f98c7f15c312da303658b814087d7698084048: within intake caps
 - `license_osi` — LICENSE declares SPDX-License-Identifier: MIT (OSI-approved)
 - `entrypoint` — main.ts at root selects node22 (accepted)
 
@@ -75,15 +78,15 @@
 - `game.rbxl` — Rebuilt with Rojo (13/13 scripts matching, 13/14 source files in dossier)
 - `TOUR.json` — Updated to reference 4 screenshots with navigation keys
 - `README.md` — Rewritten with game description, screenshots table, 3 make.fun badges
-- `screenshots/1-start.png` — Start View with HUD (113,365 bytes, 1280x720)
-- `screenshots/2-play.png` — Mid-Play View with HUD (161,296 bytes, 1280x720)
-- `screenshots/3-progression.png` — Progression/Rarity View with HUD (115,389 bytes, 1280x720)
-- `screenshots/4-summit.png` — Summit/Thumbnail View with HUD (167,536 bytes, 1280x720)
+- `screenshots/1-start.png` — Start View with HUD (118,000 bytes, 1280x720) — **FIXED: brainrot info card no longer clipped**
+- `screenshots/2-play.png` — Mid-Play View with HUD (162,541 bytes, 1280x720) — **FIXED: brainrot info card fully visible**
+- `screenshots/3-progression.png` — Progression/Rarity View with HUD (117,766 bytes, 1280x720) — **FIXED: brainrot info card fully visible**
+- `screenshots/4-summit.png` — Summit/Thumbnail View with HUD (168,793 bytes, 1280x720) — brainrot info card was already visible
 
 ### Tools (for screenshot capture)
-- `tools/shot-viewer-fixed.html` — Three.js r180 viewer with in-game HUD overlay (title, cash, $/s, wave, brainrot count), brainrot name/rarity/$/s label, full world (ALL brainrots on base & conveyor, shop with sign & reroll pad, hazard zones)
+- `tools/shot-viewer-fixed.html` — Three.js r180 viewer with in-game HUD overlay (title, cash, $/s, wave, brainrot count), brainrot name/rarity/$/s label, full world (ALL brainrots on base & conveyor, shop with sign & reroll pad, hazard zones). **FIXED in this session: clamped brainrot info card position to stay fully inside 1280x720 viewport on all shots.**
 - `tools/OrbitControls.js` — Three.js orbit controls
-- `tools/capture-screenshots.mjs` — Puppeteer script (new page per shot)
+- `tools/capture-screenshots.mjs` — Puppeteer script (new page per shot). Updated to use Puppeteer's bundled Chrome path.
 - `tools/renderer-layout.json` — Geometry layout data for rendering
 - `tools/generate-layout.mjs` — Layout generator
 - `tools/package.json` / `package-lock.json` — Node dependencies (three@0.180.0, puppeteer)
@@ -126,7 +129,7 @@ All checks should pass except `prerequisites` (always skip) and `transcripts_*` 
 ### 5. Submit Entry
 ```bash
 # From inside the unpacked kit:
-node cli/makefun.mjs submit --competition roblox-brainrot-01 --repo /home/hatch/workspace/makefun/entries/roblox-brainrot-01 --commit 39ddfe0cc5621ad5fcb611bed263572401edea7c --title "Brainrot Base Defense" --keypair <your-keypair-file> --recording 01a1e9ed-aa29-76eb-95c0-048ab8c77301,01a1ea32-41b0-76a0-a96e-f01dca134820,01a1ea73-3a18-756e-92ef-05bff2f011ab --repo-url https://github.com/Ysf30/roblox-brainrot-01
+node cli/makefun.mjs submit --competition roblox-brainrot-01 --repo /home/hatch/workspace/makefun/entries/roblox-brainrot-01 --commit 98f98c7f15c312da303658b814087d7698084048 --title "Brainrot Base Defense" --keypair <your-keypair-file> --recording 01a1e9ed-aa29-76eb-95c0-048ab8c77301,01a1ea32-41b0-76a0-a96e-f01dca134820,01a1ea73-3a18-756e-92ef-05bff2f011ab,01a1ea95-dd65-706b-bd63-c902fe13ba22 --repo-url https://github.com/Ysf30/roblox-brainrot-01
 ```
 
 ## Known Issues / Notes
@@ -134,6 +137,7 @@ node cli/makefun.mjs submit --competition roblox-brainrot-01 --repo /home/hatch/
 - Screenshot capture uses software WebGL (swiftshader) — GPU stall warnings are expected
 - `game.rbxl` was rebuilt locally; verify it opens correctly in Studio before publishing
 - Repository is already public; `.makefun/owner.json` already exists — no action needed
+- **Recording 4 (`01a1ea89`) is SEALED but EMPTY** — agent died instantly on NIM 503 overload error, no work done. **Recording 5 (`01a1ea90`) is VOID** — runtime restart killed it before agent started; seal says it cannot enter. **Submission uses recordings 1, 2, 3, and 6 only.**
 
 ## Competition Deadline
 **2026-11-20T14:30:00Z** — All steps must be completed and submitted before this time.

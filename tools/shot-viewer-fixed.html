@@ -318,8 +318,26 @@
             const vector = new THREE.Vector3();
             vector.setFromMatrixPosition(labelTargetMesh.matrixWorld);
             vector.project(camera);
-            const x = (vector.x * 0.5 + 0.5) * window.innerWidth;
-            const y = (-(vector.y * 0.5) + 0.5) * window.innerHeight;
+            let x = (vector.x * 0.5 + 0.5) * window.innerWidth;
+            let y = (-(vector.y * 0.5) + 0.5) * window.innerHeight;
+
+            // Clamp label to stay fully inside 1280x720 viewport
+            // Label uses transform: translate(-50%, -120%), so its center is at (x, y - 1.2*height)
+            // We need to measure the label's actual dimensions
+            const labelRect = label.getBoundingClientRect();
+            const labelWidth = labelRect.width || 240;  // fallback approx
+            const labelHeight = labelRect.height || 100; // fallback approx
+
+            // With translate(-50%, -120%), the label's left edge is at x - width/2
+            // and top edge is at y - 1.2*height
+            const minX = labelWidth / 2;
+            const maxX = window.innerWidth - labelWidth / 2;
+            const minY = labelHeight * 1.2;
+            const maxY = window.innerHeight - labelHeight * 0.2;
+
+            x = Math.max(minX, Math.min(maxX, x));
+            y = Math.max(minY, Math.min(maxY, y));
+
             label.style.left = `${x}px`;
             label.style.top = `${y}px`;
         }
