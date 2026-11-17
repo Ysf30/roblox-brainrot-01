@@ -3,7 +3,7 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local TweenService = game:GetService("TweenService")
 
-local Utility = require(script.Parent.Parent.shared.Utility)
+local Utility = require(game:GetService("ReplicatedStorage").Shared.Utility)
 
 local UIComponents = {}
 
@@ -163,7 +163,7 @@ end
 
 -- Create a brainrot card for shop/inventory
 function UIComponents.CreateBrainrotCard(props: table): Frame
-	local BrainrotData = require(script.Parent.Parent.shared.BrainrotData)
+	local BrainrotData = require(game:GetService("ReplicatedStorage").Shared.BrainrotData)
 	local brainrot = BrainrotData.GetBrainrot(props.BrainrotId)
 	local mutation = props.Mutation or "None"
 	local mutationData = BrainrotData.GetMutation(mutation)

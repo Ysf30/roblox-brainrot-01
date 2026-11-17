@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brainrot Base Defense - Screenshot Viewer</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { overflow: hidden; background: #1a1a2e; font-family: Arial, sans-serif; }
+        canvas { display: block; }
+        #ui {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            color: #fff;
+            pointer-events: none;
+        }
+        #shot-label {
+            font-size: 24px;
+            text-shadow: 2px 2px 4px #000;
+            background: rgba(0,0,0,0.7);
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: 2px solid #ff00ff;
+        }
+        #info {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            color: #aaa;
+            font-size: 14px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="ui">
+        <div id="shot-label">Loading...</div>
+    </div>
+    <div id="info">Brainrot Base Defense | Use ?shot=0..3 for different views</div>
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "./node_modules/three/build/three.module.js"
+        }
+    }
+    </script>
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from './OrbitControls.js';
+
+        console.log('Three.js loaded:', THREE.REVISION);
+
+        // Load layout data
+        let layout = null;
+        async function loadLayout() {
+            console.log('Fetching layout...');
+            const response = await fetch('./renderer-layout.json');
+            if (!response.ok) throw new Error('Failed to load layout: ' + response.status);
+            layout = await response.json();
+            console.log('Layout loaded, keys:', Object.keys(layout));
+        }
+
+        // Renderer setup
+        const canvas = document.createElement('canvas');
+        document.body.appendChild(canvas);
+        const renderer = new THREE.WebGLRenderer({
+            canvas,
+            antialias: true,
+            alpha: true
+        });
+        renderer.setSize(1280, 720);
+        renderer.setPixelRatio(1);
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.2;
+
+        // Scene
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x1a1a2e);
+        scene.fog = new THREE.Fog(0x1a1a2e, 50, 200);
+
+        // Camera
+        const camera = new THREE.PerspectiveCamera(60, 1280 / 720, 0.1, 500);
+
+        // Controls
+        const controls = new OrbitControls(camera, canvas);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.enablePan = true;
+        controls.minDistance = 10;
+        controls.maxDistance = 200;
+
+        // Lights
+        const ambientLight = new THREE.AmbientLight(0x4d4d59, 0.8);
+        scene.add(ambientLight);
+
+        const sunLight = new THREE.DirectionalLight(0xfff1e6, 2);
+        sunLight.position.set(-50, 100, -30);
+        sunLight.castShadow = true;
+        sunLight.shadow.mapSize.width = 2048;
+        sunLight.shadow.mapSize.height = 2048;
+        sunLight.shadow.camera.near = 0.5;
+        sunLight.shadow.camera.far = 200;
+        sunLight.shadow.camera.left = -100;
+        sunLight.shadow.camera.right = 100;
+        sunLight.shadow.camera.top = 100;
+        sunLight.shadow.camera.bottom = -100;
+        scene.add(sunLight);
+
+        // Simple materials
+        const materials = {
+            grass: new THREE.MeshStandardMaterial({ color: 0x3d3d47, roughness: 0.9, metalness: 0 }),
+            concrete: new THREE.MeshStandardMaterial({ color: 0x3c3c46, roughness: 0.8, metalness: 0.1 }),
+            metal: new THREE.MeshStandardMaterial({ color: 0x50505a, roughness: 0.4, metalness: 0.8 }),
+            wood: new THREE.MeshStandardMaterial({ color: 0x785a3c, roughness: 0.7, metalness: 0 }),
+            neon: new THREE.MeshStandardMaterial({ color: 0x00ff96, roughness: 0.1, metalness: 0.9, emissive: 0x00331a, emissiveIntensity: 0.5 }),
+            glass: new THREE.MeshStandardMaterial({ color: 0x6496ff, roughness: 0.1, metalness: 0.2, transparent: true, opacity: 0.5 }),
+            forcefield: new THREE.MeshStandardMaterial({ color: 0x00c8ff, roughness: 0.1, metalness: 0.9, transparent: true, opacity: 0.3, emissive: 0x004466, emissiveIntensity: 0.3 }),
+            slate: new THREE.MeshStandardMaterial({ color: 0x502814, roughness: 0.6, metalness: 0.2 }),
+            rock: new THREE.MeshStandardMaterial({ color: 0x646464, roughness: 0.8, metalness: 0.1 }),
+            diamond: new THREE.MeshStandardMaterial({ color: 0xc8c8c8, roughness: 0.3, metalness: 0.5 }),
+        };
+
+        function addGlow(mesh, color, intensity) {
+            const glowGeometry = new THREE.SphereGeometry(
+                Math.max(...mesh.scale.toArray()) * 0.7,
+                16, 16
+            );
+            const glowMaterial = new THREE.MeshBasicMaterial({
+                color: color,
+                transparent: true,
+                opacity: intensity * 0.15,
+                depthWrite: false,
+            });
+            const glow = new THREE.Mesh(glowGeometry, glowMaterial);
+            glow.position.copy(mesh.position);
+            scene.add(glow);
+            return glow;
+        }
+
+        async function buildWorld() {
+            console.log('Building world...');
+            // Base plot
+            const bp = layout.basePlot;
+            console.log('Base plot:', bp);
+            const baseGeom = new THREE.BoxGeometry(bp.size[0], bp.size[1], bp.size[2]);
+            const baseMat = materials.concrete.clone();
+            baseMat.color.setRGB(...bp.color);
+            const base = new THREE.Mesh(baseGeom, baseMat);
+            base.position.fromArray(bp.position);
+            base.receiveShadow = true;
+            scene.add(base);
+
+            // Grid lines
+            for (const line of bp.gridLines) {
+                const lineGeom = new THREE.BoxGeometry(line.size[0], line.size[1], line.size[2]);
+                const lineMat = materials.metal.clone();
+                lineMat.color.setRGB(...line.color);
+                lineMat.transparent = true;
+                lineMat.opacity = line.transparency !== undefined ? 1 - line.transparency : 0.5;
+                const lineMesh = new THREE.Mesh(lineGeom, lineMat);
+                lineMesh.position.fromArray(line.position);
+                lineMesh.receiveShadow = true;
+                scene.add(lineMesh);
+            }
+
+            // Base core
+            const bc = layout.baseCore;
+            const coreGeom = new THREE.BoxGeometry(bc.size[0], bc.size[1], bc.size[2]);
+            const coreMat = materials.forcefield.clone();
+            coreMat.color.setRGB(...bc.color);
+            coreMat.transparent = true;
+            coreMat.opacity = bc.transparency !== undefined ? 1 - bc.transparency : 0.7;
+            const core = new THREE.Mesh(coreGeom, coreMat);
+            core.position.fromArray(bc.position);
+            scene.add(core);
+
+            // Core light
+            const coreLight = new THREE.PointLight(0x00c8ff, 2, 30);
+            coreLight.position.fromArray(bc.position);
+            scene.add(coreLight);
+
+            // Spawn lane - simplified
+            const sl = layout.spawnLane;
+            const conveyorBaseGeom = new THREE.BoxGeometry(sl.conveyorBase.size[0], sl.conveyorBase.size[1], sl.conveyorBase.size[2]);
+            const conveyorBaseMat = materials.metal.clone();
+            conveyorBaseMat.color.setRGB(...sl.conveyorBase.color);
+            const conveyorBase = new THREE.Mesh(conveyorBaseGeom, conveyorBaseMat);
+            conveyorBase.position.fromArray(sl.conveyorBase.position);
+            conveyorBase.receiveShadow = true;
+            scene.add(conveyorBase);
+
+            // Conveyor sections (first 10 only for performance)
+            for (const section of sl.conveyorSections.slice(0, 10)) {
+                const secGeom = new THREE.BoxGeometry(section.size[0], section.size[1], section.size[2]);
+                const secMat = materials.concrete.clone();
+                secMat.color.setRGB(...section.color);
+                const secMesh = new THREE.Mesh(secGeom, secMat);
+                secMesh.position.fromArray(section.position);
+                secMesh.castShadow = true;
+                secMesh.receiveShadow = true;
+                scene.add(secMesh);
+            }
+
+            // Side walls
+            for (const wall of sl.sideWalls) {
+                const wallGeom = new THREE.BoxGeometry(wall.size[0], wall.size[1], wall.size[2]);
+                const wallMat = materials.glass.clone();
+                wallMat.color.setRGB(...wall.color);
+                wallMat.transparent = true;
+                wallMat.opacity = wall.transparency !== undefined ? 1 - wall.transparency : 0.5;
+                const wallMesh = new THREE.Mesh(wallGeom, wallMat);
+                wallMesh.position.fromArray(wall.position);
+                scene.add(wallMesh);
+            }
+
+            // Spawn pad
+            const sp = sl.spawnPad;
+            const padGeom = new THREE.BoxGeometry(sp.size[0], sp.size[1], sp.size[2]);
+            const padMat = materials.neon.clone();
+            padMat.color.setRGB(...sp.color);
+            const pad = new THREE.Mesh(padGeom, padMat);
+            pad.position.fromArray(sp.position);
+            pad.castShadow = true;
+            scene.add(pad);
+
+            // Shop - simplified
+            const sh = layout.shop;
+            const floorGeom = new THREE.BoxGeometry(sh.floor.size[0], sh.floor.size[1], sh.floor.size[2]);
+            const floorMat = materials.wood.clone();
+            floorMat.color.setRGB(...sh.floor.color);
+            const floor = new THREE.Mesh(floorGeom, floorMat);
+            floor.position.fromArray(sh.floor.position);
+            floor.receiveShadow = true;
+            scene.add(floor);
+
+            // Ground plane
+            const groundGeom = new THREE.PlaneGeometry(500, 500);
+            const groundMat = materials.grass.clone();
+            const ground = new THREE.Mesh(groundGeom, groundMat);
+            ground.rotation.x = -Math.PI / 2;
+            ground.position.y = -0.1;
+            ground.receiveShadow = true;
+            scene.add(ground);
+
+            // Sample brainrots (first 5)
+            for (const br of layout.sampleBrainrots.slice(0, 5)) {
+                let geom = new THREE.BoxGeometry(...br.size);
+                if (br.id === 'skibidi_toilet') {
+                    geom = new THREE.CylinderGeometry(br.size[0]/2, br.size[0]/2, br.size[1], 8);
+                } else if (br.id.includes('skull')) {
+                    geom = new THREE.SphereGeometry(br.size[0]/2, 16, 16);
+                }
+
+                const mutColor = new THREE.Color().setRGB(...br.color);
+                const mat = materials.concrete.clone();
+                mat.color.copy(mutColor);
+
+                const mesh = new THREE.Mesh(geom, mat);
+                mesh.position.fromArray(br.position);
+                mesh.castShadow = true;
+                mesh.receiveShadow = true;
+                scene.add(mesh);
+            }
+
+            // Conveyor brainrots (first 3)
+            for (const br of layout.conveyorBrainrots.slice(0, 3)) {
+                let geom = new THREE.BoxGeometry(...br.size);
+                if (br.id === 'skibidi_toilet') {
+                    geom = new THREE.CylinderGeometry(br.size[0]/2, br.size[0]/2, br.size[1], 8);
+                }
+
+                const mutColor = new THREE.Color().setRGB(...br.color);
+                const mat = materials.concrete.clone();
+                mat.color.copy(mutColor);
+
+                const mesh = new THREE.Mesh(geom, mat);
+                mesh.position.fromArray(br.position);
+                mesh.castShadow = true;
+                scene.add(mesh);
+            }
+
+            // Player avatar
+            const player = layout.playerStart;
+            const avatar = new THREE.Group();
+            const bodyGeom = new THREE.BoxGeometry(2, 3, 1.5);
+            const bodyMat = new THREE.MeshStandardMaterial({ color: 0xffdbac, roughness: 0.8, metalness: 0 });
+            const body = new THREE.Mesh(bodyGeom, bodyMat);
+            body.position.y = 1.5;
+            body.castShadow = true;
+            avatar.add(body);
+
+            const headGeom = new THREE.BoxGeometry(2, 2, 2);
+            const headMat = new THREE.MeshStandardMaterial({ color: 0xffdbac, roughness: 0.8, metalness: 0 });
+            const head = new THREE.Mesh(headGeom, headMat);
+            head.position.y = 4;
+            head.castShadow = true;
+            avatar.add(head);
+
+            for (const side of [-1, 1]) {
+                const armGeom = new THREE.BoxGeometry(1, 2.5, 1);
+                const arm = new THREE.Mesh(armGeom, bodyMat);
+                arm.position.set(side * 1.7, 1.5, 0);
+                arm.castShadow = true;
+                avatar.add(arm);
+            }
+
+            for (const side of [-1, 1]) {
+                const legGeom = new THREE.BoxGeometry(1, 2.5, 1);
+                const legMat = new THREE.MeshStandardMaterial({ color: 0x333344, roughness: 0.8, metalness: 0 });
+                const leg = new THREE.Mesh(legGeom, legMat);
+                leg.position.set(side * 0.5, -1.25, 0);
+                leg.castShadow = true;
+                avatar.add(leg);
+            }
+
+            avatar.position.fromArray(player.position);
+            scene.add(avatar);
+
+            console.log('World built successfully');
+        }
+
+        function setCameraShot() {
+            const shotParam = new URLSearchParams(window.location.search).get('shot');
+            const shot = shotParam ? parseInt(shotParam) : 0;
+
+            const cameras = layout.cameras;
+            console.log('Cameras:', cameras);
+            let cam;
+            switch (shot) {
+                case 0: cam = cameras.start; break;
+                case 1: cam = cameras.play; break;
+                case 2: cam = cameras.progression; break;
+                case 3: cam = cameras.summit; break;
+                default: cam = cameras.start;
+            }
+
+            console.log('Setting camera for shot', shot, ':', cam);
+            camera.position.fromArray(cam.position);
+            camera.lookAt(new THREE.Vector3().fromArray(cam.target));
+            camera.fov = cam.fov;
+            camera.updateProjectionMatrix();
+
+            controls.target.fromArray(cam.target);
+            controls.update();
+
+            const labels = ['Start View', 'Mid-Play View', 'Progression/Rarity View', 'Summit/Thumbnail'];
+            document.getElementById('shot-label').textContent = `📸 Shot ${shot}: ${labels[shot]}`;
+        }
+
+        let firstRenderDone = false;
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+            if (!firstRenderDone) {
+                firstRenderDone = true;
+                document.body.dataset.rendered = 'true';
+                console.log('First render complete');
+            }
+        }
+
+        async function init() {
+            try {
+                await loadLayout();
+                await buildWorld();
+                setCameraShot();
+                document.body.dataset.ready = 'true';
+                console.log('Init complete, starting render loop');
+                animate();
+            } catch (err) {
+                console.error('Init error:', err);
+                document.getElementById('shot-label').textContent = 'Error: ' + err.message;
+            }
+        }
+
+        init();
+    </script>
+</body>
+</html>

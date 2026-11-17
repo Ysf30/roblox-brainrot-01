@@ -4,10 +4,10 @@ local DataStoreService = game:GetService("DataStoreService")
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 
-local GameConfig = require(script.Parent.Parent.shared.GameConfig)
-local PlayerData = require(script.Parent.Parent.shared.PlayerData)
-local Network = require(script.Parent.Parent.shared.Network)
-local Utility = require(script.Parent.Parent.shared.Utility)
+local GameConfig = require(game:GetService("ReplicatedStorage").Shared.GameConfig)
+local PlayerData = require(game:GetService("ReplicatedStorage").Shared.PlayerData)
+local Network = require(game:GetService("ReplicatedStorage").Shared.Network)
+local Utility = require(game:GetService("ReplicatedStorage").Shared.Utility)
 
 local DataManager = {}
 
@@ -432,7 +432,7 @@ function DataManager.AttemptSteal(thief: Player, victim: Player, brainrotIndex: 
 	stealChance -= defenseLevel * GameConfig.Upgrades.BaseDefense.stealResistancePerLevel
 
 	-- Apply brainrot's rarity steal chance
-	local BrainrotData = require(script.Parent.Parent.shared.BrainrotData)
+	local BrainrotData = require(game:GetService("ReplicatedStorage").Shared.BrainrotData)
 	stealChance -= BrainrotData.GetStealChance(targetBrainrot.id)
 
 	stealChance = math.clamp(stealChance, 0.01, 0.95)

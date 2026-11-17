@@ -2,10 +2,10 @@
 -- Initializes all client systems for Brainrot Base Defense
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local Players = game:GetService("Players")
+local _Players = game:GetService("Players")
 
-local Network = require(script.Parent.Parent.shared.Network)
-local HUD = require(script.HUD)
+local Network = require(game:GetService("ReplicatedStorage").Shared.Network)
+local _HUD = require(script.HUD)
 local PlayerDataClient = require(script.PlayerData)
 
 -- Wait for network to be ready
@@ -66,7 +66,7 @@ local function initialize()
 		local data = PlayerDataClient.GetData()
 		data.upgrades[upgradeName] = newLevel
 		if upgradeName == "BaseSize" then
-			data.baseGridSize = require(script.Parent.Parent.shared.GameConfig).BasePlot.GridSize + (newLevel * require(script.Parent.Parent.shared.GameConfig).Upgrades.BaseSize.cellIncreasePerLevel)
+			data.baseGridSize = require(game:GetService("ReplicatedStorage").Shared.GameConfig).BasePlot.GridSize + (newLevel * require(game:GetService("ReplicatedStorage").Shared.GameConfig).Upgrades.BaseSize.cellIncreasePerLevel)
 		elseif upgradeName == "BaseDefense" then
 			data.baseDefenseLevel = newLevel
 		end

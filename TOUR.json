@@ -1,1 +1,9 @@
-{"tour": 1, "steps": [{"screenshot": "1-start.png"}, {"screenshot": "2-play.png", "keys": ["Right"], "wait_ms": 1000}, {"screenshot": "3-end.png", "keys": ["Down"], "wait_ms": 1000}]}
+{
+  "tour": 1,
+  "steps": [
+    { "screenshot": "1-start.png" },
+    { "screenshot": "2-play.png", "keys": ["Right"], "wait_ms": 1000 },
+    { "screenshot": "3-progression.png", "keys": ["Down"], "wait_ms": 1000 },
+    { "screenshot": "4-summit.png", "keys": ["Space"], "wait_ms": 1000 }
+  ]
+}

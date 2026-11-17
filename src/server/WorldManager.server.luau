@@ -5,10 +5,10 @@ local RunService = game:GetService("RunService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
 
-local GameConfig = require(script.Parent.Parent.shared.GameConfig)
-local BrainrotData = require(script.Parent.Parent.shared.BrainrotData)
-local Network = require(script.Parent.Parent.shared.Network)
-local Utility = require(script.Parent.Parent.shared.Utility)
+local GameConfig = require(game:GetService("ReplicatedStorage").Shared.GameConfig)
+local BrainrotData = require(game:GetService("ReplicatedStorage").Shared.BrainrotData)
+local Network = require(game:GetService("ReplicatedStorage").Shared.Network)
+local Utility = require(game:GetService("ReplicatedStorage").Shared.Utility)
 
 local WorldManager = {}
 
@@ -711,7 +711,7 @@ end
 
 -- Get random brainrot for shop (weighted by rarity)
 function WorldManager.GetRandomBrainrotForShop(playerData: table): string
-	local BrainrotData = require(script.Parent.Parent.shared.BrainrotData)
+	local BrainrotData = require(game:GetService("ReplicatedStorage").Shared.BrainrotData)
 	local allBrainrots = BrainrotData.GetAllSorted()
 
 	-- Weight by rarity (higher rarity = lower chance)

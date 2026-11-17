@@ -1,0 +1,1280 @@
+{
+  "basePlot": {
+    "position": [
+      0,
+      0.5,
+      0
+    ],
+    "size": [
+      60,
+      1,
+      60
+    ],
+    "color": [
+      0.235,
+      0.235,
+      0.275
+    ],
+    "gridSize": 4,
+    "cellSize": 12,
+    "gridLines": [
+      {
+        "position": [
+          -30,
+          0.6,
+          0
+        ],
+        "size": [
+          0.2,
+          0.1,
+          60
+        ],
+        "color": [
+          0.392,
+          0.392,
+          0.471
+        ],
+        "transparency": 0.5
+      },
+      {
+        "position": [
+          0,
+          0.6,
+          -30
+        ],
+        "size": [
+          60,
+          0.1,
+          0.2
+        ],
+        "color": [
+          0.392,
+          0.392,
+          0.471
+        ],
+        "transparency": 0.5
+      },
+      {
+        "position": [
+          -18,
+          0.6,
+          0
+        ],
+        "size": [
+          0.2,
+          0.1,
+          60
+        ],
+        "color": [
+          0.392,
+          0.392,
+          0.471
+        ],
+        "transparency": 0.5
+      },
+      {
+        "position": [
+          0,
+          0.6,
+          -18
+        ],
+        "size": [
+          60,
+          0.1,
+          0.2
+        ],
+        "color": [
+          0.392,
+          0.392,
+          0.471
+        ],
+        "transparency": 0.5
+      },
+      {
+        "position": [
+          -6,
+          0.6,
+          0
+        ],
+        "size": [
+          0.2,
+          0.1,
+          60
+        ],
+        "color": [
+          0.392,
+          0.392,
+          0.471
+        ],
+        "transparency": 0.5
+      },
+      {
+        "position": [
+          0,
+          0.6,
+          -6
+        ],
+        "size": [
+          60,
+          0.1,
+          0.2
+        ],
+        "color": [
+          0.392,
+          0.392,
+          0.471
+        ],
+        "transparency": 0.5
+      },
+      {
+        "position": [
+          6,
+          0.6,
+          0
+        ],
+        "size": [
+          0.2,
+          0.1,
+          60
+        ],
+        "color": [
+          0.392,
+          0.392,
+          0.471
+        ],
+        "transparency": 0.5
+      },
+      {
+        "position": [
+          0,
+          0.6,
+          6
+        ],
+        "size": [
+          60,
+          0.1,
+          0.2
+        ],
+        "color": [
+          0.392,
+          0.392,
+          0.471
+        ],
+        "transparency": 0.5
+      },
+      {
+        "position": [
+          18,
+          0.6,
+          0
+        ],
+        "size": [
+          0.2,
+          0.1,
+          60
+        ],
+        "color": [
+          0.392,
+          0.392,
+          0.471
+        ],
+        "transparency": 0.5
+      },
+      {
+        "position": [
+          0,
+          0.6,
+          18
+        ],
+        "size": [
+          60,
+          0.1,
+          0.2
+        ],
+        "color": [
+          0.392,
+          0.392,
+          0.471
+        ],
+        "transparency": 0.5
+      }
+    ]
+  },
+  "baseCore": {
+    "position": [
+      0,
+      4,
+      0
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ],
+    "color": [
+      0,
+      0.784,
+      1
+    ],
+    "material": "ForceField",
+    "transparency": 0.3
+  },
+  "spawnLane": {
+    "conveyorBase": {
+      "position": [
+        -50,
+        3.5,
+        40
+      ],
+      "size": [
+        12,
+        1,
+        80
+      ],
+      "color": [
+        0.314,
+        0.314,
+        0.353
+      ]
+    },
+    "conveyorSections": [
+      {
+        "position": [
+          -50,
+          4,
+          2
+        ],
+        "size": [
+          11,
+          0.5,
+          4
+        ],
+        "color": [
+          0.196,
+          0.196,
+          0.235
+        ]
+      },
+      {
+        "position": [
+          -50,
+          4,
+          6
+        ],
+        "size": [
+          11,
+          0.5,
+          4
+        ],
+        "color": [
+          0.196,
+          0.196,
+          0.235
+        ]
+      },
+      {
+        "position": [
+          -50,
+          4,
+          10
+        ],
+        "size": [
+          11,
+          0.5,
+          4
+        ],
+        "color": [
+          0.196,
+          0.196,
+          0.235
+        ]
+      },
+      {
+        "position": [
+          -50,
+          4,
+          14
+        ],
+        "size": [
+          11,
+          0.5,
+          4
+        ],
+        "color": [
+          0.196,
+          0.196,
+          0.235
+        ]
+      },
+      {
+        "position": [
+          -50,
+          4,
+          18
+        ],
+        "size": [
+          11,
+          0.5,
+          4
+        ],
+        "color": [
+          0.196,
+          0.196,
+          0.235
+        ]
+      },
+      {
+        "position": [
+          -50,
+          4,
+          22
+        ],
+        "size": [
+          11,
+          0.5,
+          4
+        ],
+        "color": [
+          0.196,
+          0.196,
+          0.235
+        ]
+      },
+      {
+        "position": [
+          -50,
+          4,
+          26
+        ],
+        "size": [
+          11,
+          0.5,
+          4
+        ],
+        "color": [
+          0.196,
+          0.196,
+          0.235
+        ]
+      },
+      {
+        "position": [
+          -50,
+          4,
+          30
+        ],
+        "size": [
+          11,
+          0.5,
+          4
+        ],
+        "color": [
+          0.196,
+          0.196,
+          0.235
+        ]
+      },
+      {
+        "position": [
+          -50,
+          4,
+          34
+        ],
+        "size": [
+          11,
+          0.5,
+          4
+        ],
+        "color": [
+          0.196,
+          0.196,
+          0.235
+        ]
+      },
+      {
+        "position": [
+          -50,
+          4,
+          38
+        ],
+        "size": [
+          11,
+          0.5,
+          4
+        ],
+        "color": [
+          0.196,
+          0.196,
+          0.235
+        ]
+      },
+      {
+        "position": [
+          -50,
+          4,
+          42
+        ],
+        "size": [
+          11,
+          0.5,
+          4
+        ],
+        "color": [
+          0.196,
+          0.196,
+          0.235
+        ]
+      },
+      {
+        "position": [
+          -50,
+          4,
+          46
+        ],
+        "size": [
+          11,
+          0.5,
+          4
+        ],
+        "color": [
+          0.196,
+          0.196,
+          0.235
+        ]
+      },
+      {
+        "position": [
+          -50,
+          4,
+          50
+        ],
+        "size": [
+          11,
+          0.5,
+          4
+        ],
+        "color": [
+          0.196,
+          0.196,
+          0.235
+        ]
+      },
+      {
+        "position": [
+          -50,
+          4,
+          54
+        ],
+        "size": [
+          11,
+          0.5,
+          4
+        ],
+        "color": [
+          0.196,
+          0.196,
+          0.235
+        ]
+      },
+      {
+        "position": [
+          -50,
+          4,
+          58
+        ],
+        "size": [
+          11,
+          0.5,
+          4
+        ],
+        "color": [
+          0.196,
+          0.196,
+          0.235
+        ]
+      },
+      {
+        "position": [
+          -50,
+          4,
+          62
+        ],
+        "size": [
+          11,
+          0.5,
+          4
+        ],
+        "color": [
+          0.196,
+          0.196,
+          0.235
+        ]
+      },
+      {
+        "position": [
+          -50,
+          4,
+          66
+        ],
+        "size": [
+          11,
+          0.5,
+          4
+        ],
+        "color": [
+          0.196,
+          0.196,
+          0.235
+        ]
+      },
+      {
+        "position": [
+          -50,
+          4,
+          70
+        ],
+        "size": [
+          11,
+          0.5,
+          4
+        ],
+        "color": [
+          0.196,
+          0.196,
+          0.235
+        ]
+      },
+      {
+        "position": [
+          -50,
+          4,
+          74
+        ],
+        "size": [
+          11,
+          0.5,
+          4
+        ],
+        "color": [
+          0.196,
+          0.196,
+          0.235
+        ]
+      },
+      {
+        "position": [
+          -50,
+          4,
+          78
+        ],
+        "size": [
+          11,
+          0.5,
+          4
+        ],
+        "color": [
+          0.196,
+          0.196,
+          0.235
+        ]
+      }
+    ],
+    "sideWalls": [
+      {
+        "position": [
+          -56.5,
+          5,
+          40
+        ],
+        "size": [
+          1,
+          4,
+          80
+        ],
+        "color": [
+          0.392,
+          0.588,
+          1
+        ],
+        "transparency": 0.5
+      },
+      {
+        "position": [
+          -43.5,
+          5,
+          40
+        ],
+        "size": [
+          1,
+          4,
+          80
+        ],
+        "color": [
+          0.392,
+          0.588,
+          1
+        ],
+        "transparency": 0.5
+      }
+    ],
+    "spawnPad": {
+      "position": [
+        -50,
+        4.25,
+        3
+      ],
+      "size": [
+        10,
+        0.5,
+        6
+      ],
+      "color": [
+        0,
+        1,
+        0.588
+      ]
+    }
+  },
+  "shop": {
+    "floor": {
+      "position": [
+        0,
+        3,
+        -40
+      ],
+      "size": [
+        20,
+        1,
+        15
+      ],
+      "color": [
+        0.471,
+        0.353,
+        0.235
+      ]
+    },
+    "walls": [
+      {
+        "name": "WallBack",
+        "position": [
+          0,
+          3,
+          7.5
+        ],
+        "size": [
+          20,
+          5,
+          0.5
+        ],
+        "color": [
+          0.392,
+          0.275,
+          0.157
+        ]
+      },
+      {
+        "name": "WallLeft",
+        "position": [
+          -10,
+          3,
+          0
+        ],
+        "size": [
+          0.5,
+          5,
+          15
+        ],
+        "color": [
+          0.392,
+          0.275,
+          0.157
+        ]
+      },
+      {
+        "name": "WallRight",
+        "position": [
+          10,
+          3,
+          0
+        ],
+        "size": [
+          0.5,
+          5,
+          15
+        ],
+        "color": [
+          0.392,
+          0.275,
+          0.157
+        ]
+      }
+    ],
+    "roof": {
+      "position": [
+        0,
+        8.5,
+        -40
+      ],
+      "size": [
+        22,
+        1,
+        17
+      ],
+      "color": [
+        0.314,
+        0.157,
+        0.078
+      ]
+    },
+    "sign": {
+      "position": [
+        0,
+        11,
+        -47.5
+      ],
+      "size": [
+        12,
+        4,
+        1
+      ],
+      "color": [
+        1,
+        0.784,
+        0
+      ],
+      "text": "BRAINROT SHOP"
+    },
+    "rerollPad": {
+      "position": [
+        -14,
+        0.75,
+        -40
+      ],
+      "size": [
+        6,
+        0.5,
+        6
+      ],
+      "color": [
+        1,
+        0.392,
+        0.392
+      ]
+    }
+  },
+  "hazardZones": [
+    {
+      "position": [
+        80,
+        15,
+        80
+      ],
+      "size": [
+        30,
+        20,
+        30
+      ],
+      "color": [
+        0.392,
+        0.392,
+        0.392
+      ],
+      "transparency": 0.3,
+      "name": "HighGround"
+    },
+    {
+      "position": [
+        0,
+        -5,
+        0
+      ],
+      "size": [
+        20,
+        10,
+        20
+      ],
+      "color": [
+        0.196,
+        0.196,
+        0.235
+      ],
+      "transparency": 0.2,
+      "name": "BaseShelter"
+    },
+    {
+      "position": [
+        -80,
+        15,
+        -80
+      ],
+      "size": [
+        25,
+        30,
+        25
+      ],
+      "color": [
+        1,
+        1,
+        0.784
+      ],
+      "transparency": 0.5,
+      "name": "LightZone"
+    },
+    {
+      "position": [
+        0,
+        25,
+        0
+      ],
+      "size": [
+        20,
+        2,
+        20
+      ],
+      "color": [
+        0.784,
+        0.784,
+        0.784
+      ],
+      "name": "StablePlatform"
+    },
+    {
+      "position": [
+        0,
+        10.5,
+        0
+      ],
+      "size": [
+        60,
+        2,
+        60
+      ],
+      "color": [
+        0.314,
+        0.314,
+        0.392
+      ],
+      "transparency": 0.3,
+      "name": "BaseRoof"
+    }
+  ],
+  "sampleBrainrots": [
+    {
+      "id": "skibidi_toilet",
+      "name": "Skibidi Toilet",
+      "rarity": "Common",
+      "mutation": "None",
+      "position": [
+        -12,
+        2,
+        -12
+      ],
+      "size": [
+        3,
+        4,
+        3
+      ],
+      "color": [
+        0.706,
+        0.706,
+        0.706
+      ]
+    },
+    {
+      "id": "ohio_rizzler",
+      "name": "Ohio Rizzler",
+      "rarity": "Common",
+      "mutation": "None",
+      "position": [
+        12,
+        2,
+        -12
+      ],
+      "size": [
+        2.5,
+        5,
+        2.5
+      ],
+      "color": [
+        0.706,
+        0.706,
+        0.706
+      ]
+    },
+    {
+      "id": "sigma_grindset",
+      "name": "Sigma Grindset",
+      "rarity": "Common",
+      "mutation": "Shiny",
+      "position": [
+        -12,
+        2,
+        12
+      ],
+      "size": [
+        2,
+        5,
+        2
+      ],
+      "color": [
+        1,
+        1,
+        0.588
+      ]
+    },
+    {
+      "id": "skull_emoji",
+      "name": "Skull Emoji",
+      "rarity": "Uncommon",
+      "mutation": "None",
+      "position": [
+        12,
+        2,
+        12
+      ],
+      "size": [
+        3,
+        3,
+        3
+      ],
+      "color": [
+        0.314,
+        0.784,
+        0.314
+      ]
+    },
+    {
+      "id": "rizz_god",
+      "name": "Rizz God",
+      "rarity": "Uncommon",
+      "mutation": "Golden",
+      "position": [
+        0,
+        3,
+        0
+      ],
+      "size": [
+        2.5,
+        5,
+        2.5
+      ],
+      "color": [
+        1,
+        0.843,
+        0
+      ]
+    },
+    {
+      "id": "brainrot_cat",
+      "name": "Brainrot Cat",
+      "rarity": "Rare",
+      "mutation": "None",
+      "position": [
+        -6,
+        2,
+        6
+      ],
+      "size": [
+        2,
+        2.5,
+        3
+      ],
+      "color": [
+        0.314,
+        0.471,
+        1
+      ]
+    },
+    {
+      "id": "brainrot_dragon",
+      "name": "Brainrot Dragon",
+      "rarity": "Epic",
+      "mutation": "None",
+      "position": [
+        0,
+        4,
+        -18
+      ],
+      "size": [
+        6,
+        4,
+        8
+      ],
+      "color": [
+        0.706,
+        0.314,
+        1
+      ]
+    },
+    {
+      "id": "brainrot_titan",
+      "name": "Brainrot Titan",
+      "rarity": "Legendary",
+      "mutation": "None",
+      "position": [
+        0,
+        7.5,
+        18
+      ],
+      "size": [
+        10,
+        15,
+        10
+      ],
+      "color": [
+        1,
+        0.706,
+        0
+      ]
+    },
+    {
+      "id": "brainrot_archon",
+      "name": "Brainrot Archon",
+      "rarity": "Mythic",
+      "mutation": "Rainbow",
+      "position": [
+        -18,
+        6,
+        18
+      ],
+      "size": [
+        8,
+        12,
+        8
+      ],
+      "color": [
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "id": "the_one_brainrot",
+      "name": "THE ONE BRAINROT",
+      "rarity": "BrainrotGod",
+      "mutation": "Void",
+      "position": [
+        18,
+        7.5,
+        -18
+      ],
+      "size": [
+        12,
+        15,
+        12
+      ],
+      "color": [
+        0.078,
+        0,
+        0.157
+      ]
+    }
+  ],
+  "conveyorBrainrots": [
+    {
+      "id": "skibidi_toilet",
+      "name": "Skibidi Toilet",
+      "rarity": "Common",
+      "mutation": "None",
+      "position": [
+        -50,
+        5,
+        10
+      ],
+      "size": [
+        3,
+        4,
+        3
+      ],
+      "color": [
+        0.706,
+        0.706,
+        0.706
+      ]
+    },
+    {
+      "id": "ohio_rizzler",
+      "name": "Ohio Rizzler",
+      "rarity": "Common",
+      "mutation": "None",
+      "position": [
+        -50,
+        5,
+        20
+      ],
+      "size": [
+        2.5,
+        5,
+        2.5
+      ],
+      "color": [
+        0.706,
+        0.706,
+        0.706
+      ]
+    },
+    {
+      "id": "sigma_grindset",
+      "name": "Sigma Grindset",
+      "rarity": "Common",
+      "mutation": "None",
+      "position": [
+        -50,
+        5,
+        30
+      ],
+      "size": [
+        2,
+        5,
+        2
+      ],
+      "color": [
+        0.706,
+        0.706,
+        0.706
+      ]
+    },
+    {
+      "id": "gyatt_master",
+      "name": "GYATT Master",
+      "rarity": "Common",
+      "mutation": "None",
+      "position": [
+        -50,
+        5,
+        40
+      ],
+      "size": [
+        3,
+        3,
+        3
+      ],
+      "color": [
+        0.706,
+        0.706,
+        0.706
+      ]
+    },
+    {
+      "id": "skull_emoji",
+      "name": "Skull Emoji",
+      "rarity": "Uncommon",
+      "mutation": "Shiny",
+      "position": [
+        -50,
+        5,
+        50
+      ],
+      "size": [
+        3,
+        3,
+        3
+      ],
+      "color": [
+        1,
+        1,
+        0.588
+      ]
+    },
+    {
+      "id": "rizz_god",
+      "name": "Rizz God",
+      "rarity": "Uncommon",
+      "mutation": "None",
+      "position": [
+        -50,
+        5,
+        60
+      ],
+      "size": [
+        2.5,
+        5,
+        2.5
+      ],
+      "color": [
+        0.314,
+        0.784,
+        0.314
+      ]
+    }
+  ],
+  "playerStart": {
+    "position": [
+      0,
+      5,
+      0
+    ]
+  },
+  "cameras": {
+    "start": {
+      "position": [
+        0,
+        35,
+        60
+      ],
+      "target": [
+        0,
+        5,
+        0
+      ],
+      "fov": 60
+    },
+    "play": {
+      "position": [
+        30,
+        25,
+        30
+      ],
+      "target": [
+        0,
+        5,
+        0
+      ],
+      "fov": 60
+    },
+    "progression": {
+      "position": [
+        -40,
+        30,
+        40
+      ],
+      "target": [
+        0,
+        10,
+        0
+      ],
+      "fov": 50
+    },
+    "summit": {
+      "position": [
+        0,
+        50,
+        0
+      ],
+      "target": [
+        0,
+        10,
+        0
+      ],
+      "fov": 70
+    }
+  },
+  "lighting": {
+    "ambient": [
+      0.3,
+      0.3,
+      0.35
+    ],
+    "brightness": 2,
+    "sunDirection": [
+      -0.5,
+      -1,
+      -0.3
+    ],
+    "sunColor": [
+      1,
+      0.95,
+      0.9
+    ]
+  }
+}

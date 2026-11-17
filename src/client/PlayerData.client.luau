@@ -2,9 +2,9 @@
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local GameConfig = require(script.Parent.Parent.shared.GameConfig)
-local BrainrotData = require(script.Parent.Parent.shared.BrainrotData)
-local Utility = require(script.Parent.Parent.shared.Utility)
+local GameConfig = require(game:GetService("ReplicatedStorage").Shared.GameConfig)
+local BrainrotData = require(game:GetService("ReplicatedStorage").Shared.BrainrotData)
+local Utility = require(game:GetService("ReplicatedStorage").Shared.Utility)
 
 local PlayerDataClient = {}
 
@@ -73,7 +73,7 @@ end
 
 -- Get next unlock
 function PlayerDataClient.GetNextUnlock(): string?
-	local BrainrotDataModule = require(script.Parent.Parent.shared.BrainrotData)
+	local BrainrotDataModule = require(game:GetService("ReplicatedStorage").Shared.BrainrotData)
 
 	-- Find highest rarity owned
 	local highestRarityOrder = 0

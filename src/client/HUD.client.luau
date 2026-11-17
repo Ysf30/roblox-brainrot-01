@@ -5,9 +5,9 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
 
-local GameConfig = require(script.Parent.Parent.shared.GameConfig)
-local Network = require(script.Parent.Parent.shared.Network)
-local Utility = require(script.Parent.Parent.shared.Utility)
+local GameConfig = require(game:GetService("ReplicatedStorage").Shared.GameConfig)
+local Network = require(game:GetService("ReplicatedStorage").Shared.Network)
+local Utility = require(game:GetService("ReplicatedStorage").Shared.Utility)
 local UIComponents = require(script.UIComponents)
 
 local HUD = {}
@@ -504,7 +504,7 @@ function HUD.PopulateShopPanel(offers: {table})
 
 	-- Create offer cards
 	for i, offer in ipairs(offers) do
-		local BrainrotData = require(script.Parent.Parent.shared.BrainrotData)
+		local BrainrotData = require(game:GetService("ReplicatedStorage").Shared.BrainrotData)
 		local brainrot = BrainrotData.GetBrainrot(offer.id)
 		if not brainrot then continue end
 

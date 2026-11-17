@@ -1,7 +1,7 @@
 -- PlayerData: Player data structure and management
 -- Handles serialization, defaults, and validation
 
-local GameConfig = require(script.Parent.GameConfig)
+local GameConfig = require(game:GetService("ReplicatedStorage").Shared.GameConfig)
 
 local PlayerData = {}
 
@@ -176,7 +176,7 @@ end
 -- Calculate current money per second from placed brainrots
 function PlayerData.CalculateMoneyPerSec(data: table, BrainrotData: any): number
 	local total = 0
-	local BrainrotDataModule = BrainrotData or require(script.Parent.BrainrotData)
+	local BrainrotDataModule = BrainrotData or require(game:GetService("ReplicatedStorage").Shared.BrainrotData)
 
 	for _, brainrot in ipairs(data.brainrots) do
 		local moneyPerSec = BrainrotDataModule.CalculateMoneyPerSec(brainrot.id, brainrot.mutation)
@@ -198,7 +198,7 @@ end
 
 -- Get next brainrot to unlock for shop
 function PlayerData.GetNextUnlock(data: table, BrainrotData: any): string?
-	local BrainrotDataModule = BrainrotData or require(script.Parent.BrainrotData)
+	local BrainrotDataModule = BrainrotData or require(game:GetService("ReplicatedStorage").Shared.BrainrotData)
 
 	-- Find highest rarity brainrot owned
 	local highestRarityOrder = 0
