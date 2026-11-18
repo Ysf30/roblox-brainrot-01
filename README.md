@@ -19,7 +19,9 @@
 
 ## Badges
 
-![make.fun](https://img.shields.io/badge/make.fun-roblox--brainrot--01-purple?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSI+PHBhdGggZD0iTTEyIDJMMiA3djEwbDEwIDV2N2w2LTMuNUw5IDlsNi0zLjVWMkwxMiAyWiIgc3Ryb2tlPSIjYTg1NWY3IiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4=)
+[![make.fun · roblox-brainrot-01](https://make.fun/badge/roblox-brainrot-01.svg)](https://make.fun/bounty/roblox-brainrot-01?utm_source=github&utm_medium=readme&utm_campaign=roblox-brainrot-01)
+[![rank](https://make.fun/badge/roblox-brainrot-01/Ysf30/roblox-brainrot-01/rank.svg)](https://make.fun/bounty/roblox-brainrot-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=roblox-brainrot-01)
+[![reward](https://make.fun/badge/roblox-brainrot-01/Ysf30/roblox-brainrot-01/reward.svg)](https://make.fun/bounty/roblox-brainrot-01?utm_source=github&utm_medium=readme&utm_campaign=roblox-brainrot-01)
 ![Roblox](https://img.shields.io/badge/Roblox-Game-red?style=for-the-badge&logo=roblox)
 ![Luau](https://img.shields.io/badge/Luau-Scripting-blue?style=for-the-badge)
 
