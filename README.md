@@ -2,6 +2,10 @@
 
 **Brainrot Base Defense** is a tower defense / base building Roblox game where you collect and place "brainrot" meme characters to defend your base core against waves of enemies. Earn money, upgrade your base, rebirth for permanent bonuses, and build the ultimate brainrot army!
 
+## Play the game
+
+Play it on Roblox: https://www.roblox.com/games/107442067147386/Brainrot-Base-Defense — the experience is Public, with its uploaded icon and thumbnail (the thumbnail is `screenshots/4-summit.png`, also kept at repo root as `brainrot-thumbnail-1280.png`).
+
 ## Gameplay
 
 - **Collect Brainrots**: Buy brainrot characters from the shop — each has a unique money-per-second rate and rarity (Common → Mythic → Void)

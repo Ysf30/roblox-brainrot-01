@@ -1,5 +1,16 @@
 # HANDOFF.md — Brainrot Base Defense (roblox-brainrot-01)
 
+## ❌ REJECTED (round 1) — entry_link: no uploaded thumbnail — 19 Nov 2026
+- **Status check 19 Nov 12:30 WIB:** submission 01a1ed1a rejected — the experience showed Roblox's default picture, no uploaded thumbnail. All other checks passed.
+- **Fix:** thumbnail `brainrot-thumbnail-1280.png` (identical to `screenshots/4-summit.png`) uploaded via Creator Dashboard 19 Nov ~12:25 WIB, marked Active; icon `brainrot-icon-512.png` also uploaded. Resubmission waits until Roblox's public thumbnail endpoint serves the new design (verified still the placeholder at 12:28 WIB), then round 2 with a new commit.
+
+## ✅ SUBMITTED — 18 Nov 2026, 12:21 WIB
+- **Submission ID:** 01a1ed1a-2d28-775c-8780-a75674ef7ee4
+- **Claim code:** AF-37KQW-CXKDN-GTTG5-03Y4F
+- **Commit:** a54a5560bc363f5e1be9e3ab33107ea47e5de344
+- **Status:** submitted, round 1, outcome not decided yet (verified via `makefun status --submission`; all checks pass incl. repo_readme live badges + repo_about)
+- **Receipt:** receipt.md in this dir. Prize $1,000, deadline 2026-11-20T14:30:00Z (20 Nov 21:30 WIB).
+
 ## Game Details
 - **Game Name**: Brainrot Base Defense
 - **Genre**: Tower Defense / Base Building / Tycoon
@@ -11,8 +22,8 @@
 ## Repository
 - **URL**: https://github.com/Ysf30/roblox-brainrot-01
 - **Branch**: main
-- **Latest Commit**: 98f98c7f15c312da303658b814087d7698084048
-- **Repo About**: Website https://make.fun, Topic `makefun`
+- **Latest Commit**: a54a5560bc363f5e1be9e3ab33107ea47e5de344 (PLAY.json filled + README live badges)
+- **Repo About**: Website https://make.fun/bounty/roblox-brainrot-01, Topic `makefun`
 
 ## Recording IDs
 - Recording 1 (SEALED): `01a1e9ed-aa29-76eb-95c0-048ab8c77301`
@@ -21,20 +32,20 @@
 - Recording 4: `01a1ea89` — SEALED but **EMPTY** (agent died instantly on NIM 503 overload error, no work done)
 - Recording 5: `01a1ea90` — **VOID** (runtime restart killed it before agent started; seal says it cannot enter)
 - Recording 6 (THIS SESSION): `01a1ea95-dd65-706b-bd63-c902fe13ba22`
+- Recording 7 (SEALED 2026-11-18T05:13:23Z): `01a1ed0f-351c-7266-8686-3b02c1c8654f` — PLAY.json fill session (url/place_id/universe_id + main.ts re-run, commit 21203ec)
+- Recording 8 (SEALED 2026-11-18T05:20:39Z): `01a1ed15-0471-74f7-9251-6933098edab4` — README live-badges session (commit a54a5560bc363f5e1be9e3ab33107ea47e5de344)
 
 ## Kit Check Results (Latest Run)
 **Command**: `node /home/hatch/workspace/makefun/kit-v13/roblox-brainrot-01-kit/roblox-brainrot-01-kit/cli/makefun.mjs check --kit /home/hatch/workspace/makefun/kit-v13/roblox-brainrot-01-kit/roblox-brainrot-01-kit --repo /home/hatch/workspace/makefun/entries/roblox-brainrot-01`
 
-**Result**: 4 passed, 1 failed, 16 skipped, 5 checked at submission (at commit 98f98c7f15c312da303658b814087d7698084048)
+**Result**: 5 passed, 0 failed, 16 skipped, 5 checked at submission (at commit a54a5560bc363f5e1be9e3ab33107ea47e5de344)
 
 ### Passed ✅
 - `competition_open` — Competition is currently open (between opening 2026-11-17T14:30:00Z and deadline 2026-11-20T14:30:00Z)
-- `snapshot` — 38 files, 1,579,218 bytes at 98f98c7f15c312da303658b814087d7698084048: within intake caps
+- `snapshot` — 38 files, 1,591,068 bytes at a54a5560bc363f5e1be9e3ab33107ea47e5de344: within intake caps
 - `license_osi` — LICENSE declares SPDX-License-Identifier: MIT (OSI-approved)
 - `entrypoint` — main.ts at root selects node22 (accepted)
-
-### Failed ❌
-- `play_link` — PLAY.json still holds starter values (url: "https://www.roblox.com/games/0", place_id: 0, universe_id: 0). **Requires manual action**: Publish the experience from Roblox Studio, set it Public, then write its play link, place_id, and universe_id to PLAY.json.
+- `play_link` — place 107442067147386 is the start place of "Brainrot Base Defense" (universe 10777468793), Public, by bearby027; its description holds play code makefun-calypso-chalet-radish
 
 ### Skipped (require submission-time checks)
 - `prerequisites` — Roblox Studio, Node.js 22.18+, Git, coding agent, Roblox account
@@ -91,7 +102,8 @@
 - `tools/generate-layout.mjs` — Layout generator
 - `tools/package.json` / `package-lock.json` — Node dependencies (three@0.180.0, puppeteer)
 
-## Manual Steps Required for Submission
+## Manual Steps Required for Submission — ✅ ALL DONE (submitted 18 Nov 12:21 WIB, see receipt.md)
+Steps 1–5 below were completed: game published PUBLIC with play code in description, PLAY.json filled, kit check green, entry submitted. Kept for reference only.
 
 ### 1. Publish Game on Roblox (REQUIRED)
 - Open `game.rbxl` in Roblox Studio
@@ -137,7 +149,7 @@ node cli/makefun.mjs submit --competition roblox-brainrot-01 --repo /home/hatch/
 - Screenshot capture uses software WebGL (swiftshader) — GPU stall warnings are expected
 - `game.rbxl` was rebuilt locally; verify it opens correctly in Studio before publishing
 - Repository is already public; `.makefun/owner.json` already exists — no action needed
-- **Recording 4 (`01a1ea89`) is SEALED but EMPTY** — agent died instantly on NIM 503 overload error, no work done. **Recording 5 (`01a1ea90`) is VOID** — runtime restart killed it before agent started; seal says it cannot enter. **Submission uses recordings 1, 2, 3, and 6 only.**
+- **Recording 4 (`01a1ea89`) is SEALED but EMPTY** — agent died instantly on NIM 503 overload error, no work done. **Recording 5 (`01a1ea90`) is VOID** — runtime restart killed it before agent started; seal says it cannot enter. **Submission uses recordings 1, 2, 3, 6, 7 (01a1ed0f) and 8 (01a1ed15).**
 
 ## Competition Deadline
 **2026-11-20T14:30:00Z** — All steps must be completed and submitted before this time.
